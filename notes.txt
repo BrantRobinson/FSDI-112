@@ -1,0 +1,22 @@
+--------- Create venv-----------
+py -m venv venv
+
+--------- Activate venv --------
+venv\Scripts\activate
+
+---------- Install Django ---------
+pip install django
+
+pip freeze
+pip freeze > requirements.txt
+
+---------- Start Django Project/Create config folder ---------
+django-admin startproject config .
+
+------------ RUN -----------------
+py manage.py runserver
+
+------ Create an application called pages ---------
+py manage.py startapp pages
+then add pages to the settings.py INSTALLED_APPS
+then add this to config/urls.py: path('', include('pages.urls')),
