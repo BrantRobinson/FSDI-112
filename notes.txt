@@ -20,3 +20,6 @@ py manage.py runserver
 py manage.py startapp pages
 then add pages to the settings.py INSTALLED_APPS
 then add this to config/urls.py: path('', include('pages.urls')),
+
+---------create superuser ----------
+python manage.py create superuser

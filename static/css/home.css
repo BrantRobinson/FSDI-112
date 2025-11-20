@@ -1,0 +1,9 @@
+h1{
+    background-color: tomato;
+    padding: .1em 1em;
+}
+
+p{
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}

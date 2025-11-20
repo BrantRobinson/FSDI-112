@@ -1,0 +1,1 @@
+console.log("printing from a static file")

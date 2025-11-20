@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-3">
+
+  <!-- Logo -->
+  <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+    <i class="fa-solid fa-toilet-paper me-2"></i>
+    <h5>Blog</h5>
+  </a>
+
+  <!-- Mobile Hamburger -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar Content -->
+  <div class="collapse navbar-collapse" id="navbarContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'about' %}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link 3</a>
+      </li>
+    </ul>
+
+    <!-- Right profile dropdown -->
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+
+        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown"
+           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+          <i class="fa-solid fa-user"></i>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+
+  </div>
+</nav>
