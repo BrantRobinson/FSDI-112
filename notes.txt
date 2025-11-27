@@ -18,8 +18,31 @@ py manage.py runserver
 
 ------ Create an application called pages ---------
 py manage.py startapp pages
-then add pages to the settings.py INSTALLED_APPS
-then add this to config/urls.py: path('', include('pages.urls')),
+
+
+------------Settings.py changes ---------------
+in INSTALLED APPS:
+settings.py 
+
+in TEMPLATES:
+'DIRS': [str(BASE_DIR.joinpath("templates"))],
+
+--------in config/urls.py------------
+
+in urlpatterns:
+path('', include('pages.urls')),
+
+----------create .gitignore ---------
+venv
+*__pycache__*
 
 ---------create superuser ----------
 python manage.py create superuser
+
+
+-----------utilities ------------
+crispy forms: https://django-crispy-forms.readthedocs.io/
+
+pip install django-crispy-forms
+pip install crispy-bootsrap5
+
