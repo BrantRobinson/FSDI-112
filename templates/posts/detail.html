@@ -1,1 +1,43 @@
 {% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+    {{ single_post.title }}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">{{ single_post.title }}</h1>
+        <div>
+            <a href="{% url 'post_list' %}" class="btn btn-outline-secondary me-2">Back</a>
+            {% if user.is_authenticated and single_post.author == user %}
+                <a href="{% url 'post_update' single_post.id %}" class="btn btn-primary me-1">Edit</a>
+                <a href="{% url 'post_delete' single_post.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            {% if single_post.subtitle %}
+                <h5 class="card-subtitle mb-3 text-muted">{{ single_post.subtitle }}</h5>
+            {% endif %}
+
+            {% if single_post.image %}
+                <img src="{{ single_post.image.url }}" 
+                    class="img-fluid rounded"
+                    alt="{{single_post.title}}"
+                    style="object-fit: cover; width: 150px; height: 150px">
+            {% endif %}
+
+            <div class="card-text mb-3">{{ single_post.body|linebreaks }}</div>
+
+            <p class="text-muted small mb-0">By {{ single_post.author }} • {{ single_post.created_on|date:"F d, Y \a\t H:i A" }}</p>
+        </div>
+    </div>
+   
+{% endblock %}

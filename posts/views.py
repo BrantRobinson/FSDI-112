@@ -18,6 +18,17 @@ class PostListView(ListView):
     template_name = "posts/list.html"
     model = Post
     context_object_name = "posts"
+    
+    def get_queryset(self):
+        user = self.request.user
+
+        published = Post.objects.filter(status__name="Published")
+
+        if user.is_authenticated:
+            own_posts = Post.objects.filter(author=user)
+            return (published | own_posts).distinct()
+        return published
+
 
 class PostDetailView(DetailView): 
     """
@@ -33,11 +44,10 @@ class PostCreateView(CreateView):
     """
     template_name = "posts/new.html"
     model = Post
-    fields = ["title", "subtitle", "body", "image"]
+    fields = ["title", "subtitle", "body", "image", "status"]
 
     def form_valid(self, form):
-        print(User.objects.all())
-        form.instance.author = User.objects.filter(is_superuser=True).first()
+        form.instance.author = self.request.user 
         return super().form_valid(form)
 
 class PostUpdateView(UpdateView): 
@@ -47,7 +57,7 @@ class PostUpdateView(UpdateView):
     template_name = "posts/update.html"
     context_object_name = "single_post"
     model = Post
-    fields = ["title", "subtitle", "body", "image"]
+    fields = ["title", "subtitle", "body", "image", "status"]
 
 class PostDeleteView(DeleteView):
     """
