@@ -27,6 +27,13 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'post_new' %}">New Post</a>
       </li>
+     
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'draft_list' %}">Draft Posts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'archive_list' %}">Archived Posts</a>
+      </li>
 
       {% else %}
         <li class="nav-item">

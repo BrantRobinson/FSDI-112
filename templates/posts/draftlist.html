@@ -1,70 +1,74 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% block title %} Posts {% endblock%} 
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} My Drafts {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/posts.css' %}" />
-{% endblock %} 
+<link rel="stylesheet" href="{% static 'css/posts.css' %}" />
+{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <h1 class="mb-0">Posts</h1>
+  <h1 class="mb-0">My Drafts</h1>
   <a href="{% url 'post_new' %}" class="btn btn-primary">New Post</a>
 </div>
 
 <div class="row">
-  {% for item in posts %}
+  {% for item in draft_posts %}
   <div class="col-12 mb-3">
     <div class="card shadow-sm">
       <div class="card-body">
         <div class="row">
           <div class="col-4 d-flex align-items-center position-relative">
             {% if item.image %}
-                <img
+              <img
                 src="{{ item.image.url }}"
                 class="img-fluid rounded"
                 alt="{{ item.title }}"
                 style="object-fit: cover; width: 100%; height: 150px"
-                />
-                {% endif %}
-                {% if item.status.name == "Draft" or item.status.name == "Archived" %}
-                  <span class="badge bg-info position-absolute top-0 start-0 m-2">{{ item.status.name }}</span>
-                {% endif %}
-              </div>
+              />
+            {% endif %}
+          </div>
+
           <div class="col-8">
             <h5 class="card-title">{{ item.title }}</h5>
+
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <small class="text-muted">{{ item.created_on|date:"F j, Y" }}</small>
+              <small class="text-muted">
+                {{ item.created_on|date:"F j, Y" }}
+              </small>
               <small class="text-muted">By {{ item.author }}</small>
             </div>
+
             <p class="card-text">{{ item.body|truncatechars:50 }}</p>
 
             <a
               href="{% url 'post_detail' item.id %}"
               class="btn btn-sm btn-outline-primary me-1"
-              >Read</a
+              >View</a
             >
-            {% if user == item.author %}
-                <a
-                  href="{% url 'post_update' item.id %}"
-                  class="btn btn-sm btn-outline-secondary me-1"
-                  >Edit</a
-                >
-                <a
-                  href="{% url 'post_delete' item.id %}"
-                  class="btn btn-sm btn-outline-danger"
-                  >Delete</a
-                >
-            {% endif %}
+            <a
+              href="{% url 'post_update' item.id %}"
+              class="btn btn-sm btn-outline-secondary me-1"
+              >Edit</a
+            >
+            <a
+              href="{% url 'post_delete' item.id %}"
+              class="btn btn-sm btn-outline-danger"
+              >Delete</a
+            >
           </div>
         </div>
       </div>
     </div>
   </div>
+
   {% empty %}
   <div class="col-12">
-    <div class="alert alert-info">No posts yet. Create the first post!</div>
+    <div class="alert alert-info">
+      You have no draft posts.
+    </div>
   </div>
   {% endfor %}
 </div>
+
 {% endblock %}

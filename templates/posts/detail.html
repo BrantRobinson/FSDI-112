@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% load static %}
 {% block title %}
@@ -37,6 +38,24 @@
             <div class="card-text mb-3">{{ single_post.body|linebreaks }}</div>
 
             <p class="text-muted small mb-0">By {{ single_post.author }} • {{ single_post.created_on|date:"F d, Y \a\t H:i A" }}</p>
+        </div>
+        <div class="container">
+            <h2>Comments</h2>
+            {% for comment in comments %}
+                <p><strong>{{ comment.author }}</strong> ({{ comment.created_on }}):</p>
+                <p>{{ comment.body }}</p>
+                {% empty %}
+                <p>No comments yet</p>
+            {% endfor %}
+            <hr>
+            <h2>Add a Comment</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-outline-secondary">Submit</button>
+
+            </form>
+
         </div>
     </div>
    
