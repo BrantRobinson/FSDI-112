@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}
+    Confirm Email
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+
+            <h2 class="mb-3 text-center">Confirm Email Address</h2>
+
+            {% if confirmation %}
+                {% if can_confirm %}
+
+                    <p class="text-muted text-center">
+                        Please confirm that<br>
+                        <strong>{{ confirmation.email_address.email }}</strong><br>
+                        belongs to your account.
+                    </p>
+
+                    <form action="{% url 'account_confirm_email' confirmation.key %}" method="post">
+                        {% csrf_token %}
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Confirm Email
+                            </button>
+                        </div>
+                    </form>
+
+                {% else %}
+
+                    <p class="text-danger text-center">
+                        This email is already confirmed by another account.
+                    </p>
+
+                {% endif %}
+            {% else %}
+
+                <p class="text-warning text-center">
+                    This confirmation link is invalid or expired.<br>
+                    <a href="{% url 'account_email' %}">Request a new one</a>.
+                </p>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

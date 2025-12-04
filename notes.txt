@@ -23,7 +23,6 @@ py manage.py startapp pages
 ------------Settings.py changes ---------------
 in INSTALLED APPS:
 settings.py 
-
 in TEMPLATES:
 'DIRS': [str(BASE_DIR.joinpath("templates"))],
 
