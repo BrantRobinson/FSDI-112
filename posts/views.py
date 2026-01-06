@@ -52,7 +52,7 @@ class PostArchiveListView(LoginRequiredMixin, ListView):
         drafts = Post.objects.filter(status__name="Archived", author = user).order_by("created_on").reverse()
         return drafts
 
-class PostDetailView(LoginRequiredMixin, FormMixin, DetailView): 
+class PostDetailView(FormMixin, DetailView): 
     """
     PostListView retrieves one object from the posts table in the database
     """
@@ -67,10 +67,12 @@ class PostDetailView(LoginRequiredMixin, FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comments'] = self.object.comments.all().order_by('-created_on')
-        
-        if 'form' not in context:
-            context['form'] = self.get_form() 
-        
+
+        if self.request.user.is_authenticated:
+            context['form'] = self.get_form()
+        else:
+            context['form'] = None  # optional, but explicit
+
         return context
     
     def post(self, request, *args, **kwargs):
